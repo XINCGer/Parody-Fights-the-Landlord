@@ -1,0 +1,61 @@
+---
+---                 ColaFramework
+--- Copyright © 2018-2049 ColaFramework 马三小伙儿
+---                 #NAME# UI类
+---
+
+local UIBase = require("Core.ui.UIBase")
+local #NAME# = Class("#NAME#",UIBase)
+
+local _instance = nil
+
+-- 获取UI实例的接口
+function #NAME#.Instance()
+    if nil == _instance then
+        _instance = #NAME#:new()
+    end
+    return _instance
+end
+
+-- virtual 子类可以初始化一些变量
+function #NAME#:InitParam()
+
+end
+
+-- override UI面板创建结束后调用，可以在这里获取gameObject和component等操作
+function #NAME#:OnCreate()
+
+end
+
+-- 界面可见性变化的时候触发
+function #NAME#:OnShow(isShow)
+
+end
+
+-- 界面销毁的过程中触发
+function #NAME#:OnDestroy()
+	UIBase.OnDestroy(self)
+end
+
+-- 注册UI事件监听
+function #NAME#:RegisterEvent()
+
+end
+
+-- 取消注册UI事件监听
+function #NAME#:UnRegisterEvent()
+
+end
+
+------------------- UI事件回调 --------------------------
+function #NAME#:onClick(name)
+
+end
+
+function #NAME#:onBoolValueChange(name, isSelect)
+
+end
+
+---------------------- UI事件回调 --------------------------
+
+return #NAME#
