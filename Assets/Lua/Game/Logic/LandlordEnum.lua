@@ -18,11 +18,11 @@ LandlordEnum.CharacterType = {
 
 ---@class 花色
 LandlordEnum.Suits = {
-    Club,
-    Diamond,
-    Heart,
-    Spade,
-    None,
+    Club = 1,
+    Diamond = 2,
+    Heart = 3,
+    Spade = 4,
+    None = 5,
 }
 
 ---@class 卡牌权重
@@ -42,4 +42,24 @@ LandlordEnum.Weight = {
     Two = 13,
     sJocker = 14,
     LJocker = 15,
+}
+
+---@class 身份类别
+LandlordEnum.Identity = {
+    Farmer = 1,
+    Landlord = 2,
+}
+
+---@class 出牌类型
+LandlordEnum.CardsType = {
+    ---@field 未知类型
+    None = 1,
+    ---@field 王炸
+    JockerBoom = 2,
+    ---@field 炸弹
+    Boom = 3,
+    ---@field 三个X
+    OnlyThree = 4,
+    ---@field 三带一
+    ThreeAndOne = 5,
 }
