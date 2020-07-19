@@ -1,7 +1,7 @@
 ﻿---
 ---                 ColaFramework
 --- Copyright © 2018-2049 ColaFramework 马三小伙儿
----                斗地主模块的枚举定义
+---                斗地主各种枚举定义
 ---
 
 local LandlordEnum = {}
@@ -18,10 +18,15 @@ LandlordEnum.CharacterType = {
 
 ---@class 花色
 LandlordEnum.Suits = {
+    ---@field 草花
     Club = 1,
+    ---@field 方片
     Diamond = 2,
+    ---@field 红桃
     Heart = 3,
+    ---@field 黑桃
     Spade = 4,
+    ---@field 其他无花色
     None = 5,
 }
 
@@ -46,7 +51,9 @@ LandlordEnum.Weight = {
 
 ---@class 身份类别
 LandlordEnum.Identity = {
+    ---@field 农民
     Farmer = 1,
+    ---@field 地主
     Landlord = 2,
 }
 
@@ -62,4 +69,16 @@ LandlordEnum.CardsType = {
     OnlyThree = 4,
     ---@field 三带一
     ThreeAndOne = 5,
+    ---@field 三带二
+    ThreeAndTwo = 6,
+    ---@field 顺子:五张或更多的连续单牌
+    Straight = 7,
+    ---@field 双顺:三对或更多的连续对牌
+    DoubleStraight = 8,
+    ---@field 三顺:二个或更多的连续三张牌
+    TripleStraight = 9,
+    ---@field 对子
+    Double = 10,
+    ---@field 单个
+    Single = 11,
 }
