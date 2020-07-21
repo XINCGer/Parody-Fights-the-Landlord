@@ -26,7 +26,7 @@ local function gloablDefine()
     -- 必须首先注册全局Class,顺序敏感
     _G.Class = require("Core.middleclass")
     define("LuaLogHelper", require("Utilitys.LuaLogHelper"))
-    define("EventMgr", require("Mgrs.EventMgr"))
+    _G.EventMgr = require("Mgrs.EventMgr")
     require("Game.Main.Modules")
     require("Game.Main.GUICollections")
     -- 模块初始化

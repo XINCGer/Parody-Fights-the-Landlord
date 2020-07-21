@@ -31,9 +31,9 @@ end
 -- 注册事件
 function UIManager:RegisterEvent()
     -- 创建界面
-    EventMgr.Instance():RegisterEvent(Modules.moduleId.Common, Modules.notifyId.Common.CREATE_PANEL, self.Open, self)
+    EventMgr.RegisterEvent(Modules.moduleId.Common, Modules.notifyId.Common.CREATE_PANEL, self.Open, self)
     -- 销毁界面
-    EventMgr.Instance():RegisterEvent(Modules.moduleId.Common, Modules.notifyId.Common.DESTROY_PANEL, self.Close, self)
+    EventMgr.RegisterEvent(Modules.moduleId.Common, Modules.notifyId.Common.DESTROY_PANEL, self.Close, self)
 end
 
 -- 设置一个UI界面参与点击其他地方关闭面板管理
@@ -147,7 +147,7 @@ function UIManager:PopAndShowAllUI()
         end
     end
     self.recordList = {}
-    EventMgr.Instance():DispatchEvent(Modules.moduleId.Common, Modules.notifyId.Common.ALLUI_SHOWSTATE_CHANGED, { state = true })
+    EventMgr.DispatchEvent(Modules.moduleId.Common, Modules.notifyId.Common.ALLUI_SHOWSTATE_CHANGED, { state = true })
 end
 
 -- 记录并隐藏除了指定类型的当前显示的所有UI
@@ -159,7 +159,7 @@ function UIManager:StashAndHideAllUI(UIEnum, extUI)
             v:SetVisible(false)
         end
     end
-    EventMgr.Instance():DispatchEvent(Modules.moduleId.Common, Modules.notifyId.Common.ALLUI_SHOWSTATE_CHANGED, { state = false })
+    EventMgr.DispatchEvent(Modules.moduleId.Common, Modules.notifyId.Common.ALLUI_SHOWSTATE_CHANGED, { state = false })
 end
 
 -- 统一关闭属于某一UI层
