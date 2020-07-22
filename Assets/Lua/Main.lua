@@ -32,7 +32,7 @@ local function gloablDefine()
     define("UIManager", require("Mgrs.UIManager"))
     _G.ConfigMgr = require("Mgrs.ConfigMgr")
     _G.Protocol = require("Protocols.Protocol")
-    define("NetManager", require("Core.Net.NetManager"))
+    _G.NetManager = require("Core.Net.NetManager")
     --控制全局变量的新建与访问
     require("Utilitys.LuaGlobalCheck")
 end
