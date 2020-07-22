@@ -10,8 +10,6 @@ end
 
 local function initialize()
     LuaLogHelper.initialize()
-    ConfigMgr.Instance()
-    EventMgr.Instance()
     UIManager.Instance()
     NetManager.Initialize()
 
@@ -32,7 +30,7 @@ local function gloablDefine()
     -- 模块初始化
     Modules.Initialize()
     define("UIManager", require("Mgrs.UIManager"))
-    define("ConfigMgr", require("Mgrs.ConfigMgr"))
+    _G.ConfigMgr = require("Mgrs.ConfigMgr")
     _G.Protocol = require("Protocols.Protocol")
     define("NetManager", require("Core.Net.NetManager"))
     --控制全局变量的新建与访问
@@ -62,7 +60,7 @@ function Main()
 
     UIManager.Instance():Open(ECEnumType.UIEnum.Loading)
     CommonUtil.GetSceneMgr():LoadSceneAdditiveAsync("xinshoucun", function(sceneName)
-        EventMgr.Instance():DispatchEvent(Modules.moduleId.Common, Modules.notifyId.Common.CREATE_PANEL, ECEnumType.UIEnum.Login)
+        EventMgr.DispatchEvent(Modules.moduleId.Common, Modules.notifyId.Common.CREATE_PANEL, ECEnumType.UIEnum.Login)
         UIManager.Instance():Close(ECEnumType.UIEnum.Loading)
     end)
 end

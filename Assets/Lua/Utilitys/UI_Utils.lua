@@ -25,7 +25,7 @@ end
 
 -- 获取I18N文字
 function UI_Utils.GetText(id)
-    local cfg = ConfigMgr.Instance():GetItem("Language", id)
+    local cfg = ConfigMgr.GetItem("Language", id)
     if cfg then
         return cfg.text or ""
     end
