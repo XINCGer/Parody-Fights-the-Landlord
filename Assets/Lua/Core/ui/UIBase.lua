@@ -59,14 +59,14 @@ function UIBase:Create()
         self.Panel:AddSingleComponent(typeof(UnityEngine.UI.GraphicRaycaster))
         self.uiCanvas.overrideSorting = true
         self.Panel:AddSingleComponent(typeof(ParticleOrderAutoSorter))
-        UIManager.Instance():GetUISorterMgr():AddPanel(self)
+        UIManager.GetUISorterMgr():AddPanel(self)
     end
     self.isExist = true
     -- ShowUIBlur 与 ShowUIMask 互斥
     if self.isShowUIBlur then
-        UIManager.Instance():ShowUIBlur(self)
+        UIManager.ShowUIBlur(self)
     elseif self.isShowUIMask then
-        UIManager.Instance():ShowUIMask(self)
+        UIManager.ShowUIMask(self)
     end
 
     if ret then
@@ -89,14 +89,14 @@ function UIBase:CreateWithGo(gameObejct)
         self.Panel:AddSingleComponent(typeof(UnityEngine.GraphicRaycaster))
         self.uiCanvas.overrideSorting = true
         self.Panel:AddSingleComponent(typeof(ParticleOrderAutoSorter))
-        UIManager.Instance():GetUISorterMgr():AddPanel(self)
+        UIManager.GetUISorterMgr():AddPanel(self)
     end
     self.isExist = true
     -- ShowUIBlur 与 ShowUIMask 互斥
     if self.isShowUIBlur then
-        UIManager.Instance():ShowUIBlur(self)
+        UIManager.ShowUIBlur(self)
     elseif self.isShowUIMask then
-        UIManager.Instance():ShowUIMask(self)
+        UIManager.ShowUIMask(self)
     end
     self:AttachListener(self.Panel)
     self:RegisterEvent()
@@ -133,7 +133,7 @@ end
 -- 销毁一个UI界面，不要直接调用，通过UIManger关闭、派发消息关闭或者直接调用DestroySelf函数关闭
 function UIBase:Destroy()
     if self.sortEnable then
-        UIManager.Instance():GetUISorterMgr():RemovePanel(self)
+        UIManager.GetUISorterMgr():RemovePanel(self)
     end
     self:DestroySubPanels()
     self:UnRegisterEvent()
@@ -172,7 +172,7 @@ end
 
 -- 销毁自身，可以在自身的方法中调用，同时会去UIManager中清理
 function UIBase:DestroySelf()
-    UIManager.Instance():CloseUISelf(self)
+    UIManager.CloseUISelf(self)
 end
 
 -- 关联子UI，统一参与管理
@@ -219,12 +219,12 @@ end
 
 -- 将当前UI层级提高，展示在当前Level的最上层
 function UIBase:BringTop()
-    UIManager.Instance():GetUISorterMgr():MovePanelToTop(self)
+    UIManager.GetUISorterMgr():MovePanelToTop(self)
 end
 
 -- 将当前UI提升到指定UIDepthLayer的最上层
 function UIBase:BringToTopOfLayer(depthLayer)
-    UIManager.Instance():GetUISorterMgr():MovePanelToTopOfLayer(self, depthLayer)
+    UIManager.GetUISorterMgr():MovePanelToTopOfLayer(self, depthLayer)
 end
 
 -- 显示UI背景模糊
@@ -239,7 +239,7 @@ end
 
 -- 设置点击外部关闭(执行该方法以后，当点击其他UI的时候，会自动关闭本UI)
 function UIBase:SetOutTouchDisappear()
-    UIManager.Instance():SetOutTouchDisappear(self)
+    UIManager.SetOutTouchDisappear(self)
 end
 
 -- 获取UITableviewCell
@@ -350,7 +350,7 @@ end
 
 function UIBase:onEvent(eventName)
     if eventName == "onClick" then
-        UIManager.Instance():NotifyDisappear(self.PanelName)
+        UIManager.NotifyDisappear(self.PanelName)
     end
 end
 

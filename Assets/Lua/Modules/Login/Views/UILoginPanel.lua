@@ -62,8 +62,8 @@ function UILoginPanel:onClick(name)
         self:DestroySelf()
     elseif name == "okBtn" then
         self:DestroySelf()
-        UIManager.Instance():Close(ECEnumType.UIEnum.Loading)
-        UIManager.Instance():Open(ECEnumType.UIEnum.WorldDialog)
+        UIManager.Close(ECEnumType.UIEnum.Loading)
+        UIManager.Open(ECEnumType.UIEnum.WorldDialog)
         SceneCharacter.CreateSceneCharacterInf("Arts/Avatar/Blade_Girl.prefab", AnimCtrlEnum.CharAnimator, true)
         Ctrl.Login.RequestConnectServer()
     end

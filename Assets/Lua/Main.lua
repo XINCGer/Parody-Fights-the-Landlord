@@ -10,7 +10,6 @@ end
 
 local function initialize()
     LuaLogHelper.initialize()
-    UIManager.Instance()
     NetManager.Initialize()
 
     -- 模块开始加载
@@ -29,7 +28,7 @@ local function gloablDefine()
     require("Game.Main.GUICollections")
     -- 模块初始化
     Modules.Initialize()
-    define("UIManager", require("Mgrs.UIManager"))
+    _G.UIManager = require("Mgrs.UIManager")
     _G.ConfigMgr = require("Mgrs.ConfigMgr")
     _G.Protocol = require("Protocols.Protocol")
     _G.NetManager = require("Core.Net.NetManager")
@@ -57,11 +56,10 @@ function Main()
     initParam()
     initialize()
 
-
-    UIManager.Instance():Open(ECEnumType.UIEnum.Loading)
+    UIManager.Open(ECEnumType.UIEnum.Loading)
     CommonUtil.GetSceneMgr():LoadSceneAdditiveAsync("xinshoucun", function(sceneName)
         EventMgr.DispatchEvent(Modules.moduleId.Common, Modules.notifyId.Common.CREATE_PANEL, ECEnumType.UIEnum.Login)
-        UIManager.Instance():Close(ECEnumType.UIEnum.Loading)
+        UIManager.Close(ECEnumType.UIEnum.Loading)
     end)
 end
 

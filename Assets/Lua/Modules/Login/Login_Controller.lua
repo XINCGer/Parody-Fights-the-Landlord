@@ -34,8 +34,8 @@ end
 --- 测试函数如无需要可以删除
 function private.OnLoginServer(code, msg)
     print("------------>成功登录游戏服务器,code is:", code, "msg is:", msg)
-    UIManager.Instance():Close(ECEnumType.UIEnum.Loading)
-    UIManager.Instance():Open(ECEnumType.UIEnum.WorldDialog)
+    UIManager.Close(ECEnumType.UIEnum.Loading)
+    UIManager.Open(ECEnumType.UIEnum.WorldDialog)
     SceneCharacter.CreateSceneCharacterInf("Arts/Avatar/Blade_Girl.prefab", AnimCtrlEnum.CharAnimator, true)
 end
 
