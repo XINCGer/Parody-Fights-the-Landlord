@@ -82,3 +82,5 @@ LandlordEnum.CardsType = {
     ---@field 单个
     Single = 11,
 }
+
+return LandlordEnum
