@@ -4,15 +4,22 @@
 ---                斗地主各种枚举定义
 ---
 
+--- 斗地主各种枚举定义
+---@class LandlordEnum
 local LandlordEnum = {}
 _G.LandlordEnum = LandlordEnum
 
----@class 角色类型
+---角色类型 CharacterType
+---@class LandlordEnum.CharacterType
 LandlordEnum.CharacterType = {
     Library = 1,
+    ---玩家
     Player = 2,
+    ---电脑1
     ComputerOne = 3,
+    ---电脑2
     ComputerTwo = 4,
+    ---牌桌
     Desk = 5,
 }
 
@@ -30,7 +37,16 @@ LandlordEnum.Suits = {
     None = 5,
 }
 
----@class 卡牌权重
+---花色对应的名字
+LandlordEnum.SuitName = {
+    [LandlordEnum.Suits.Club] = "Club",
+    [LandlordEnum.Suits.Diamond] = "Diamond",
+    [LandlordEnum.Suits.Heart] = "Heart",
+    [LandlordEnum.Suits.Spade] = "Spade",
+    [LandlordEnum.Suits.None] = "None",
+}
+
+--- 卡牌权重
 LandlordEnum.Weight = {
     Three = 1,
     Four = 2,
