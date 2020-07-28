@@ -9,7 +9,7 @@
 local LandlordEnum = {}
 _G.LandlordEnum = LandlordEnum
 
----角色类型 CharacterType
+---角色类型
 ---@class LandlordEnum.CharacterType
 LandlordEnum.CharacterType = {
     Library = 1,
@@ -23,7 +23,8 @@ LandlordEnum.CharacterType = {
     Desk = 5,
 }
 
----@class 花色
+---花色
+---@class LandlordEnum.Suits
 LandlordEnum.Suits = {
     ---@field 草花
     Club = 1,
@@ -38,6 +39,7 @@ LandlordEnum.Suits = {
 }
 
 ---花色对应的名字
+---@class LandlordEnum.SuitName
 LandlordEnum.SuitName = {
     [LandlordEnum.Suits.Club] = "Club",
     [LandlordEnum.Suits.Diamond] = "Diamond",
@@ -47,6 +49,7 @@ LandlordEnum.SuitName = {
 }
 
 --- 卡牌权重
+---@class LandlordEnum.Weight
 LandlordEnum.Weight = {
     Three = 1,
     Four = 2,
@@ -65,7 +68,8 @@ LandlordEnum.Weight = {
     LJocker = 15,
 }
 
----@class 身份类别
+---身份类别
+---@class LandlordEnum.Identity
 LandlordEnum.Identity = {
     ---@field 农民
     Farmer = 1,
@@ -73,7 +77,8 @@ LandlordEnum.Identity = {
     Landlord = 2,
 }
 
----@class 出牌类型
+---出牌类型
+---@class LandlordEnum.CardsType
 LandlordEnum.CardsType = {
     ---@field 未知类型
     None = 1,
