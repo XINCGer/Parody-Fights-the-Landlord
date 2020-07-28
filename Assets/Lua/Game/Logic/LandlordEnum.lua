@@ -64,8 +64,8 @@ LandlordEnum.Weight = {
     King = 11,
     One = 12,
     Two = 13,
-    sJocker = 14,
-    LJocker = 15,
+    SJoker = 14,
+    LJoker = 15,
 }
 
 ---身份类别

@@ -12,6 +12,8 @@ local function initialize()
     LuaLogHelper.initialize()
     NetManager.Initialize()
 
+    -- UIManager初始化
+    UIManager.initialize()
     -- 模块开始加载
     Modules.PriorityBoot()
 end

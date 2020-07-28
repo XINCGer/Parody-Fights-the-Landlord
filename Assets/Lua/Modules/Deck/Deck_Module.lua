@@ -5,6 +5,8 @@
 ---
 
 local LandlordEnum = require("Game.Logic.LandlordEnum")
+local Card = require("Game.Data.Card")
+
 --- 公有字段和方法
 local public = {}
 --- 私有字段和方法
@@ -39,10 +41,31 @@ end
 
 ---创建一副牌
 function private.CreateDeck()
-    for color=1,COLOR_SIZE do
-        for value =1,CARD_NUM do
-            local name = LandlordEnum.SuitName[color] or "None"
+    for color = 1, COLOR_SIZE do
+        for value = 1, CARD_NUM do
+            local name = LandlordEnum.SuitName[color] or LandlordEnum.SuitName[LandlordEnum.Suits.None]
+            local card = Card:new(name, value, color, cType)
+            table.insert(library, card)
+        end
+    end
 
+    --- 创建大小王
+    local smallJoker = Card:new("SJoker", LandlordEnum.Weight.SJoker, LandlordEnum.Suits.None, cType)
+    local largeJocer = Card:new("LJoker", LandlordEnum.Weight.LJoker, LandlordEnum.Suits.None, cType)
+
+    table.insert(smallJoker)
+    table.insert(largeJocer)
+end
+
+function public.Shuffle()
+    if public.CardsCount() == 54 then
+        local shuffleList = {}
+        for _, v in ipairs(library) do
+            table.insert(shuffleList, math.random(#shuffleList + 1), v)
+        end
+        library = {}
+        for _, v in ipairs(shuffleList) do
+            table.insert(library, v)
         end
     end
 end
