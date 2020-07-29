@@ -1,7 +1,7 @@
 ﻿---
 ---                 ColaFramework
 --- Copyright © 2018-2049 ColaFramework 马三小伙儿
----              Deck_Controller Controller业务逻辑
+---              牌库 Controller业务逻辑
 ---
 
 --- 公有字段和方法

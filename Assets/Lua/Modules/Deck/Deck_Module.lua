@@ -1,7 +1,7 @@
 ﻿---
 ---                 ColaFramework
 --- Copyright © 2018-2049 ColaFramework 马三小伙儿
----              Deck_Module Module业务逻辑
+---              牌库 Module业务逻辑
 ---
 
 local LandlordEnum = require("Game.Logic.LandlordEnum")
