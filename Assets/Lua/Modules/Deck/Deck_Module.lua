@@ -70,6 +70,22 @@ function public.Shuffle()
     end
 end
 
+---发牌
+---@return Card
+function public.Deal()
+    local index = #library
+    local ret = library[index]
+    table.remove(library, index)
+    return ret
+end
+
+---向牌库中添加牌
+---@param card Card
+function public.AddCard(card)
+    card:SetAttribution(cType)
+    table.insert(library, card)
+end
+
 ---获取牌库中牌的数量
 function public.CardsCount()
     return #library

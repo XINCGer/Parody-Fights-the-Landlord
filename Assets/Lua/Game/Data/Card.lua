@@ -4,7 +4,8 @@
 ---                 XXXXX模块
 ---
 
----@class 牌类
+---牌类
+---@class Card
 local Card = Class("Card")
 
 ---构造器
