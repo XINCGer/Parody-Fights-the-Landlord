@@ -20,21 +20,22 @@ local OnConnectedCallback = nil
 
 --- NetManager的初始化
 function NetManager.Initialize()
-    Socket = SocketManager.Instance
-    local sprotoBytes = CommonUtil.LoadTextWithBytes(SPROTO_BYTES_PATH)
-    sprotoCoder = sproto.new(sprotoBytes)
-
-    for k, v in pairs(Protocol) do
-        code2ProtoNameMap[v] = k
-    end
-
-    Socket.OnConnected = NetManager.OnConnected
-    Socket.OnReConnected = NetManager.OnReConnected
-    Socket.OnClose = NetManager.OnClosed
-    Socket.OnFailed = NetManager.OnFailed
-    Socket.OnTimeOut = NetManager.OnTimeOut
-    Socket.OnErrorCode = NetManager.OnErrorCode
-    NetMessageCenter.Instance.OnMessage = NetManager.OnMessage
+    
+    --Socket = SocketManager.Instance
+    --local sprotoBytes = CommonUtil.LoadTextWithBytes(SPROTO_BYTES_PATH)
+    --sprotoCoder = sproto.new(sprotoBytes)
+    --
+    --for k, v in pairs(Protocol) do
+    --    code2ProtoNameMap[v] = k
+    --end
+    --
+    --Socket.OnConnected = NetManager.OnConnected
+    --Socket.OnReConnected = NetManager.OnReConnected
+    --Socket.OnClose = NetManager.OnClosed
+    --Socket.OnFailed = NetManager.OnFailed
+    --Socket.OnTimeOut = NetManager.OnTimeOut
+    --Socket.OnErrorCode = NetManager.OnErrorCode
+    --NetMessageCenter.Instance.OnMessage = NetManager.OnMessage
     -- TODO:配置网络加密等
 end
 

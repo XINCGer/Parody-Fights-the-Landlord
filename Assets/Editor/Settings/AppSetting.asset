@@ -21,6 +21,6 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   SimulateMode: 0
-  GameFrameRate: 30
+  GameFrameRate: 0
   LuaBundleMode: 0
   CheckUpdate: 0
