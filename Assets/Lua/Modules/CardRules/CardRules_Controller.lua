@@ -82,4 +82,28 @@ function public.IsStraight(cards)
     return true
 end
 
+---是否是双顺子
+---@param cards table<number,Card>
+function public.IsDoubleStraight(cards)
+    local length = #cards
+    if length < 6 or length % 2 ~= 0 then
+        return false
+    end
+
+    for i = 1, length, 2 do
+        if cards[i + 1]:GetCardWeight() ~= cards[i]:GetCardWeight() then
+            return false
+        end
+        if i <= length - 2 then
+            if cards[i + 2]:GetCardWeight() - cards[i]:GetCardWeight() ~= 1 then
+                return false
+            end
+            if cards[i]:GetCardWeight() > LandlordEnum.Weight.One or cards[i + 2]:GetCardWeight() > LandlordEnum.Weight.One then
+                return false
+            end
+        end
+    end
+    return true
+end
+
 return public
