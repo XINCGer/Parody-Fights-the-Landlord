@@ -154,4 +154,19 @@ function public.IsOnlyThree(cards)
     return false
 end
 
+---是否三带一
+---@param cards table<number,Card>
+---@return boolean
+function public.IsThreeAndOne(cards)
+    if #cards ~= 4 then
+        return false
+    end
+    if cards[1]:GetCardWeight() == cards[2]:GetCardWeight() and cards[2]:GetCardWeight() == cards[3]:GetCardWeight() then
+        return true
+    elseif cards[2]:GetCardWeight() == cards[3]:GetCardWeight() and cards[3]:GetCardWeight() == cards[4]:GetCardWeight() then
+        return true
+    end
+    return false
+end
+
 return public
