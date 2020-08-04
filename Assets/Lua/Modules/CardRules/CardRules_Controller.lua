@@ -108,7 +108,7 @@ function public.IsDoubleStraight(cards)
     return true
 end
 
----飞机不带
+---是否飞机不带
 ---@param cards table<number,Card>
 ---@return boolean
 function public.IsTripleStraight(cards)
@@ -139,6 +139,19 @@ function public.IsTripleStraight(cards)
         end
     end
     return true
+end
+
+---是否三不带
+---@param cards table<number,Card>
+---@return boolean
+function public.IsOnlyThree(cards)
+    if #cards % 3 ~= 0 then
+        return false
+    end
+    if cards[1]:GetCardWeight() == cards[2]:GetCardWeight() and cards[2]:GetCardWeight() == cards[3]:GetCardWeight() then
+        return true
+    end
+    return false
 end
 
 return public
