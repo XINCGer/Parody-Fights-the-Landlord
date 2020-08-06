@@ -169,4 +169,23 @@ function public.IsThreeAndOne(cards)
     return false
 end
 
+---是否是三带二
+---@param cards table<number,Card>
+---@return boolean
+function public.IsThreeAndTwo(cards)
+    if #cards ~= 5 then
+        return false
+    end
+    if cards[1]:GetCardWeight() == cards[2]:GetCardWeight() and cards[2]:GetCardWeight() == cards[3]:GetCardWeight() then
+        if cards[4]:GetCardWeight() == cards[5]:GetCardWeight() then
+            return true
+        end
+    elseif cards[3]:GetCardWeight() == cards[4]:GetCardWeight() and cards[4]:GetCardWeight() == cards[5]:GetCardWeight() then
+        if cards[1]:GetCardWeight() == cards[2]:GetCardWeight() then
+            return true
+        end
+    end
+    return false
+end
+
 return public
