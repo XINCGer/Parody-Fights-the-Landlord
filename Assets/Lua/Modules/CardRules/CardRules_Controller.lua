@@ -188,4 +188,20 @@ function public.IsThreeAndTwo(cards)
     return false
 end
 
+---是否是炸弹
+---@param cards table<number,Card>
+---@return boolean
+function public.IsBoom(cards)
+    if #cards ~= 4 then
+        return false
+    end
+    local _card = cards[1]
+    for i = 2, #cards do
+        if cards[i] ~= _card then
+            return false
+        end
+    end
+    return true
+end
+
 return public
