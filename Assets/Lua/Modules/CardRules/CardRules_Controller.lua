@@ -204,4 +204,25 @@ function public.IsBoom(cards)
     return true
 end
 
+---是否是王炸
+---@param cards table<number,Card>
+---@return boolean
+function public.IsJokerBoom(cards)
+    if #cards ~= 2 then
+        return false
+    end
+    if cards[1]:GetCardWeight() == LandlordEnum.Weight.SJoker then
+        if cards[2]:GetCardWeight() == LandlordEnum.Weight.LJoker then
+            return true
+        end
+        return false
+    elseif cards[1]:GetCardWeight() == LandlordEnum.Weight.LJoker then
+        if cards[2]:GetCardWeight() == LandlordEnum.Weight.SJoker then
+            return true
+        end
+        return false
+    end
+    return false
+end
+
 return public
