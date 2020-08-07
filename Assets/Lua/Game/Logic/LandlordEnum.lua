@@ -83,7 +83,7 @@ LandlordEnum.CardsType = {
     ---@field 未知类型
     None = 1,
     ---@field 王炸
-    JockerBoom = 2,
+    JokerBoom = 2,
     ---@field 炸弹
     Boom = 3,
     ---@field 三个X
