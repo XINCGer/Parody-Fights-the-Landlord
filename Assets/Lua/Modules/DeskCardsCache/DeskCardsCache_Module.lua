@@ -62,7 +62,7 @@ end
 
 ---手牌排序
 function public.Sort()
-    Mod.CardRules.SortCards(library, true)
+    Ctrl.CardRules.SortCards(library, true)
 end
 
 --- Controller模块的销毁，可以在这里做清理工作和取消监听等操作

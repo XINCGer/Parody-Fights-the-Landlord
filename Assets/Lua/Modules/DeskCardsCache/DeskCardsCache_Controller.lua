@@ -19,9 +19,15 @@ function public.OnDestroy()
 
 end
 
---- 测试函数如无需要可以删除
-function private.Test()
 
+---清空桌面
+function private.Clear()
+    --TODO:待完善
+    local cardSprites = GameObject.Find("Desk").GetComponentsInChildren("CardSprite");
+    for i = 1, cardSprites.Length do
+        cardSprites[i].transform.parent = nil;
+        cardSprites[i].Destroy();
+    end
 end
 
 return public
