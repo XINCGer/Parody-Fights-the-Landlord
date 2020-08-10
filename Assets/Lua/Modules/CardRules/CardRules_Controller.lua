@@ -287,10 +287,78 @@ function public.PopEnable(cards)
             isRule = true
             type = LandlordEnum.CardsType.Straight
         elseif public.IsDoubleStraight(cards) then
-            isRule=true
+            isRule = true
+            type = LandlordEnum.CardsType.DoubleStraight
+        end
+    elseif 9 == length then
+        if public.IsStraight(cards) then
+            isRule = true
+            type = LandlordEnum.CardsType.Straight
+        elseif public.IsOnlyThree(cards) then
+            isRule = true
+            type = LandlordEnum.CardsType.OnlyThree
+        end
+    elseif 10 == length then
+        if public.IsStraight(cards) then
+            isRule = true
+            type = LandlordEnum.CardsType.Straight
+        elseif public.IsDoubleStraight(cards) then
+            isRule = true
+            type = LandlordEnum.CardsType.DoubleStraight
+        end
+    elseif 11 == length then
+        if public.IsStraight(cards) then
+            isRule = true
+            type = LandlordEnum.CardsType.Straight
+        end
+    elseif 12 == length then
+        if public.IsStraight(cards) then
+            isRule = true
+            type = LandlordEnum.CardsType.Straight
+        elseif public.IsDoubleStraight(cards) then
+            isRule = true
+            type = LandlordEnum.CardsType.DoubleStraight
+        elseif public.IsOnlyThree(cards) then
+            isRule = true
+            type = LandlordEnum.CardsType.OnlyThree
+        end
+    elseif 13 == length then
+        --pass
+    elseif 14 == length then
+        if public.IsDoubleStraight(cards) then
+            isRule = true
+            type = LandlordEnum.CardsType.DoubleStraight
+        end
+    elseif 15 == length then
+        if public.IsOnlyThree(cards) then
+            isRule = true
+            type = LandlordEnum.CardsType.OnlyThree
+        end
+    elseif 16 == length then
+        if public.IsDoubleStraight(cards) then
+            isRule = true
+            type = LandlordEnum.CardsType.DoubleStraight
+        end
+    elseif 17 == length then
+        --pass
+    elseif 18 == length then
+        if public.IsDoubleStraight(cards) then
+            isRule = true
+            type = LandlordEnum.CardsType.DoubleStraight
+        elseif public.IsOnlyThree(cards) then
+            isRule = true
+            type = LandlordEnum.CardsType.OnlyThree
+        end
+    elseif 19 == length then
+        --pass
+    elseif 20 == length then
+        if public.IsDoubleStraight(cards) then
+            isRule = true
             type = LandlordEnum.CardsType.DoubleStraight
         end
     end
+
+    return isRule, type
 end
 
 return public
