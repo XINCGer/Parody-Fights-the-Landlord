@@ -8,7 +8,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameLauncher.unity
     guid: 1efa5d5d478a40947a735cfccb0ee482
-  - enabled: 1
-    path: Assets/Scenes/xinshoucun.unity
-    guid: 0defb9e3e396a0847a017603da558f58
   m_configObjects: {}
