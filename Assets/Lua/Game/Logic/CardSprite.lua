@@ -66,4 +66,21 @@ function CardSprite:Destroy()
     CommonUtil.DiscardGameObject(self.ResPath, self.GameObject)
 end
 
+---调整位置
+---@param parent UnityEngine.GameObject
+---@param index number
+function CardSprite:GoToPosition(parent,index)
+    
+end
+
+---卡牌点击
+function CardSprite:OnClick()
+    if self.Poker:GetAttribution() == CharacterType.Player then
+        if self.isSelected then
+        else
+
+        end
+    end
+end
+
 return CardSprite
