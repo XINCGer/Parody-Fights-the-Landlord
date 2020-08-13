@@ -8,6 +8,7 @@
 ---@class CardSprite
 local CardSprite = Class("CardSprite")
 local CharacterType = LandlordEnum.CharacterType
+local vector3 = UnityEngine.Vector3
 
 ---构造器
 function CardSprite:initialize()
@@ -21,6 +22,8 @@ function CardSprite:initialize()
     self.isSelected = false
     ---@type string
     self.ResPath = ""
+    ---@type SorterTag
+    self.sorterTag = self.GameObject:AddSingleComponent(typeof(SorterTag))
 end
 
 ---获得sprite所装载的card
@@ -69,16 +72,27 @@ end
 ---调整位置
 ---@param parent UnityEngine.GameObject
 ---@param index number
-function CardSprite:GoToPosition(parent,index)
-    
+function CardSprite:GoToPosition(parent, index)
+    self.sorterTag:SetSorter(index)
+    local charType = self.Poker:GetAttribution()
+    if CharacterType.Player == charType then
+    elseif CharacterType.ComputerOne == charType or CharacterType.ComputerTwo == charType then
+    elseif CharacterType.Desk == charType then
+    end
 end
 
 ---卡牌点击
 function CardSprite:OnClick()
     if self.Poker:GetAttribution() == CharacterType.Player then
+        local pos = self.GameObject.transform.localPosition
         if self.isSelected then
+            pos = pos - vector3.up * 10
+            self.GameObject.transform.localPosition = pos
+            self.isSelected = false
         else
-
+            pos = pos + vector3.up * 10
+            self.GameObject.transform.localPosition = pos
+            self.isSelected = true
         end
     end
 end
