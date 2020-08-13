@@ -67,10 +67,10 @@ namespace ColaFramework.ToolKit
             }
         }
 
-        void OnPreprocessTexture()
-        {
-            OnTextureImport(assetPath);
-        }
+        //void OnPreprocessTexture()
+        //{
+        //    OnTextureImport(assetPath);
+        //}
 
         private static void OnTextureImport(string assetPath)
         {
