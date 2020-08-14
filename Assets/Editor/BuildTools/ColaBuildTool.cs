@@ -12,6 +12,10 @@ using System.Text;
 using Plugins.XAsset;
 using ColaFramework.Foundation;
 using LitJson;
+#if UNITY_IOS
+using UnityEditor.iOS.Xcode;
+using UnityEditor.Callbacks;
+#endif
 
 namespace ColaFramework.ToolKit
 {
@@ -108,13 +112,47 @@ namespace ColaFramework.ToolKit
         }
 
         /// <summary>
-        /// 处理非侵入式SDK的接入
+        /// 处理非侵入式SDK的接入(Android端)
         /// </summary>
         /// <param name="buildTargetGroup"></param>
         private static void BuildSDK(BuildTargetGroup buildTargetGroup)
         {
 
         }
+
+        const string ENABLE_BITCODE_KEY = "ENABLE_BITCODE";
+
+#if UNITY_IOS
+        /// <summary>
+        /// 处理非侵入式SDK的接入(iOS端)
+        /// </summary>
+        [PostProcessBuild]
+        public static void OnPostBuild(BuildTarget buildTarget, string buildPath)
+        {
+            if (buildTarget != BuildTarget.iOS)
+            {
+                return;
+            }
+
+            string pbxProjPath = PBXProject.GetPBXProjectPath(buildPath);
+            var pbxProject = new PBXProject();
+            pbxProject.ReadFromString(File.ReadAllText(pbxProjPath));
+
+#if UNITY_2019_3_OR_NEWER
+            string targetGuid = pbxProject.GetUnityFrameworkTargetGuid();
+#else
+            string targetGuid = pbxProject.TargetGuidByName(PBXProject.GetUnityTargetName());
+#endif
+            var projRoot = Path.GetDirectoryName(Application.dataPath);
+
+            //分解为多个步骤来配置iOS的工程，在每一步根据对应的Option，进行对应的操作
+
+            // 1.设置关闭Bitcode（如果不需要，可注释掉）
+            pbxProject.SetBuildProperty(targetGuid, ENABLE_BITCODE_KEY, "NO");
+            //.重新写回配置
+            File.WriteAllText(pbxProjPath, pbxProject.WriteToString());
+        }
+#endif
 
         /// <summary>
         /// 用来设置一些编译的宏和参数等操作
