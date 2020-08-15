@@ -55,7 +55,16 @@ namespace ColaFramework.ToolKit
         public static string BuildPlayer(BuildTarget buildTarget)
         {
             StringBuilder buildReport = new StringBuilder();
-
+            
+            //切换平台
+            if (buildTarget != EditorUserBuildSettings.activeBuildTarget)
+            {
+                Debug.Log("Start switch platform to: "+buildTarget);
+                var targetGroup = BuildPipeline.GetBuildTargetGroup(buildTarget);
+                EditorUserBuildSettings.SwitchActiveBuildTarget(targetGroup, buildTarget);
+                Debug.Log("End switch platform to: " + buildTarget);
+            }
+            
             //0.根据buildTarget区分BuildGroup
             BuildTargetGroup buildTargetGroup = HandleBuildGroup(buildTarget);
             if (BuildTargetGroup.Unknown == buildTargetGroup)
