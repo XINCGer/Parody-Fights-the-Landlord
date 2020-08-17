@@ -70,14 +70,24 @@ function CardSprite:Destroy()
 end
 
 ---调整位置
----@param parent UnityEngine.GameObject
+---@param rootPos UnityEngine.Vector3
 ---@param index number
-function CardSprite:GoToPosition(parent, index)
+function CardSprite:GoToPosition(rootPos, index)
     self.sorterTag:SetSorter(index)
     local charType = self.Poker:GetAttribution()
     if CharacterType.Player == charType then
+        local pos = rootPos + vector3.right * 25 * index
+        self.GameObject.transform.localPosition = pos
+        if self.isSelected then
+            pos = self.GameObject.transform.localPosition + vector3.up * 10
+            self.GameObject.transform.localPosition = pos
+        end
     elseif CharacterType.ComputerOne == charType or CharacterType.ComputerTwo == charType then
+        local pos = rootPos - vector3.up * 25 * index
+        self.GameObject.transform.localPosition = pos
     elseif CharacterType.Desk == charType then
+        local pos = rootPos + vector3.right * 25 * index
+        self.GameObject.transform.localPosition = pos
     end
 end
 
