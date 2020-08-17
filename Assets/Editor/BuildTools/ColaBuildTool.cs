@@ -129,9 +129,9 @@ namespace ColaFramework.ToolKit
 
         }
 
-        const string ENABLE_BITCODE_KEY = "ENABLE_BITCODE";
-
 #if UNITY_IOS
+        private const string ENABLE_BITCODE_KEY = "ENABLE_BITCODE";
+
         /// <summary>
         /// 处理非侵入式SDK的接入(iOS端)
         /// </summary>
