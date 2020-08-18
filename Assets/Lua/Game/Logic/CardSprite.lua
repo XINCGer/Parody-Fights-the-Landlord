@@ -40,18 +40,6 @@ function CardSprite:SetPoker(Poker)
     self:SetSprite()
 end
 
----是否被选中
----@return boolean
-function CardSprite:IsSelect()
-    return self.isSelected
-end
-
----设置是否被选中
----@param isSelected boolean
-function CardSprite:SetSelect(isSelected)
-    self.isSelected = isSelected
-end
-
 ---设置UISprite的显示
 function CardSprite:SetSprite()
     local charType = self.Poker:GetAttribution()
