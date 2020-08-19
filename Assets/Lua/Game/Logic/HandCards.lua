@@ -43,6 +43,7 @@ function HandCards:CardCount()
 end
 
 ---获取手中所有的牌
+---@return table<number,Card>
 function HandCards:GetAllCards()
     return self.library
 end
