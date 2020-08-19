@@ -42,6 +42,11 @@ function HandCards:CardCount()
     return #self.library
 end
 
+---获取手中所有的牌
+function HandCards:GetAllCards()
+    return self.library
+end
+
 ---获取手牌
 ---@param index number
 ---@return Card
