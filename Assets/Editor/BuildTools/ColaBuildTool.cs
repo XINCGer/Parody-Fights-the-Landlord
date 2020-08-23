@@ -51,11 +51,23 @@ namespace ColaFramework.ToolKit
 
         private static Dictionary<EnvOption, string> internalEnvMap = new Dictionary<EnvOption, string>();
 
-        #region BuildPlayer接口
-        public static string BuildPlayer(BuildTarget buildTarget)
+        #region 封装打包机BuildPlayer接口
+
+        public static void BuildForAndroid()
         {
-            StringBuilder buildReport = new StringBuilder();
-            
+            BuildPlayer(BuildTarget.Android);
+        }
+
+        public static void BuildForiOS()
+        {
+            BuildPlayer(BuildTarget.iOS);
+        }
+
+        #endregion
+        
+        #region BuildPlayer接口
+        public static void BuildPlayer(BuildTarget buildTarget)
+        {
             //切换平台
             if (buildTarget != EditorUserBuildSettings.activeBuildTarget)
             {
@@ -66,7 +78,7 @@ namespace ColaFramework.ToolKit
             }
             
             //0.根据buildTarget区分BuildGroup
-            BuildTargetGroup buildTargetGroup = HandleBuildGroup(buildTarget);
+            BuildTargetGroup buildTargetGroup = BuildPipeline.GetBuildTargetGroup(buildTarget);
             if (BuildTargetGroup.Unknown == buildTargetGroup)
             {
                 throw new System.Exception(string.Format("{0} is Unknown Build Platform ! Build Failture!", buildTarget));
@@ -106,9 +118,6 @@ namespace ColaFramework.ToolKit
                 //8.清理工作，恢复工作区
                 CleanUp(buildTargetGroup);
             }
-
-
-            return buildReport.ToString();
         }
 
         /// <summary>
@@ -238,7 +247,7 @@ namespace ColaFramework.ToolKit
                 }
 
                 AssetDatabase.SaveAssets();
-                var buildReport = BuildPipeline.BuildPlayer(buildPlayerOptions);
+                BuildPipeline.BuildPlayer(buildPlayerOptions);
 #endif
             }
             Debug.Log("=================Build Pkg Time================ : " + (System.DateTime.Now - beginTime).TotalSeconds);
