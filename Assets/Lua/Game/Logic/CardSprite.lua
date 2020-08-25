@@ -95,4 +95,10 @@ function CardSprite:OnClick()
     end
 end
 
+---设置卡牌的父节点
+---@param rootTF UnityEngine.Transform
+function CardSprite:SetParent(rootTF)
+    self.GameObject.transform:SetParent(rootTF)
+end
+
 return CardSprite
