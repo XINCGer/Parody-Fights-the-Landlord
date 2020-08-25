@@ -37,4 +37,25 @@ function PlayerCard:CheckSelectCards()
     Ctrl.CardRules.SortCards(selectedCardsList,true)
 end
 
+---检测玩家出牌
+---@param selectedCardsList table<number,Card>
+---@param selectedSpriteList table<number,CardSprite>
+---@return boolean
+function PlayerCard:CheckPlayCards(selectedCardsList,selectedSpriteList)
+    --检测是否符合出牌规范
+    local result ,type = Ctrl.CardRules.PopEnable(selectedCardsList)
+    if result then
+        local rule = Mod.DeskCardsCache.GetRule()
+    end
+    return result
+end
+
+---玩家出牌
+---@param selectedCardsList table<number,Card>
+---@param selectedSpriteList table<number,CardSprite>
+---@param type LandlordEnum.CardsType
+function PlayerCard:PlayCard(selectedCardsList,selectedSpriteList,type)
+
+end
+
 return PlayerCard
