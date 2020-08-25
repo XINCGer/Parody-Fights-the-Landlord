@@ -74,7 +74,16 @@ end
 ---@param selectedSpriteList table<number,CardSprite>
 ---@param type LandlordEnum.CardsType
 function PlayerCard:PlayCard(selectedCardsList, selectedSpriteList, type)
+    --如果符合将牌从手牌移到出牌缓存区
+    Mod.DeskCardsCache.Clear()
+    Mod.DeskCardsCache.SetRule(type)
 
+    for _,v in ipairs(selectedSpriteList) do
+        self.handCards:PopCard(v:GetPoker())
+        Mod.DeskCardsCache.AddCard(v:GetPoker())
+        --todo:Ctrl.World.GetDeskRootTF()
+        v:SetParent(Ctrl.World.GetDeskRootTF())
+    end
 end
 
 return PlayerCard
