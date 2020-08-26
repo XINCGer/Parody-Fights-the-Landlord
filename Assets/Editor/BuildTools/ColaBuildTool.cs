@@ -64,19 +64,25 @@ namespace ColaFramework.ToolKit
         }
 
         #endregion
-        
+
         #region BuildPlayer接口
         public static void BuildPlayer(BuildTarget buildTarget)
         {
+            //检查BuildSceneList
+            if (!CheckScenesInBuildValid())
+            {
+                return;
+            }
+
             //切换平台
             if (buildTarget != EditorUserBuildSettings.activeBuildTarget)
             {
-                Debug.Log("Start switch platform to: "+buildTarget);
+                Debug.Log("Start switch platform to: " + buildTarget);
                 var targetGroup = BuildPipeline.GetBuildTargetGroup(buildTarget);
                 EditorUserBuildSettings.SwitchActiveBuildTarget(targetGroup, buildTarget);
                 Debug.Log("End switch platform to: " + buildTarget);
             }
-            
+
             //0.根据buildTarget区分BuildGroup
             BuildTargetGroup buildTargetGroup = BuildPipeline.GetBuildTargetGroup(buildTarget);
             if (BuildTargetGroup.Unknown == buildTargetGroup)
@@ -548,6 +554,22 @@ namespace ColaFramework.ToolKit
 
             }
         }
+        #endregion
+
+        #region 工具方法
+        public static bool CheckScenesInBuildValid()
+        {
+            foreach (var scene in EditorBuildSettings.scenes)
+            {
+                if (!File.Exists(scene.path))
+                {
+                    Debug.LogError("Error! Scene In BuildList中有场景丢失！请检查！");
+                    return false;
+                }
+            }
+            return true;
+        }
+
         #endregion
 
         #region 环境变量
