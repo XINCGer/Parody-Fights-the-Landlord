@@ -78,9 +78,11 @@ namespace ColaFramework.ToolKit
             if (buildTarget != EditorUserBuildSettings.activeBuildTarget)
             {
                 Debug.Log("Start switch platform to: " + buildTarget);
+                var beginTime = System.DateTime.Now;
                 var targetGroup = BuildPipeline.GetBuildTargetGroup(buildTarget);
                 EditorUserBuildSettings.SwitchActiveBuildTarget(targetGroup, buildTarget);
                 Debug.Log("End switch platform to: " + buildTarget);
+                Debug.Log("=================Build SwitchPlatform Time================ : " + (System.DateTime.Now - beginTime).TotalSeconds);
             }
 
             //0.根据buildTarget区分BuildGroup
