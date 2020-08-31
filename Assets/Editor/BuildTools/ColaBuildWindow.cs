@@ -77,6 +77,11 @@ namespace ColaFramework.ToolKit
         [LabelWidth(200)]
         private bool AnalyzeBundle = true;
 
+        [LabelText("选择打包平台")]
+        [SerializeField]
+        [LabelWidth(200)]
+        private BuildTarget BuildTarget;
+
         [Button("一键打包", ButtonSizes.Large, ButtonStyle.Box)]
         private void BuildPlayer()
         {
@@ -107,7 +112,7 @@ namespace ColaFramework.ToolKit
 
             ColaBuildTool.SetEnvironmentVariable(EnvOption.ANALYZE_BUNDLE, AnalyzeBundle.ToString(), false);
 
-            ColaBuildTool.BuildPlayer(BuildTarget.Android);
+            ColaBuildTool.BuildPlayer(BuildTarget);
         }
 
         private void Init()
