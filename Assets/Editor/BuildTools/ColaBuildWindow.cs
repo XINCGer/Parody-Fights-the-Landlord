@@ -34,12 +34,12 @@ namespace ColaFramework.ToolKit
         [LabelWidth(200)]
         private bool isHotUpdate;
 
-        [LabelText("是否是Development Debug包")]
+        [LabelText("是否Development Debug包")]
         [LabelWidth(200)]
         [SerializeField]
         private bool isDevelopment = false;
 
-        [LabelText("是Mono包还是il2cpp包")]
+        [LabelText("是否Mono包")]
         [LabelWidth(200)]
         [SerializeField]
         private bool isMono = false;
@@ -111,6 +111,11 @@ namespace ColaFramework.ToolKit
             ColaBuildTool.SetEnvironmentVariable(EnvOption.CDN_PASSWORD, CDNPassword, false);
 
             ColaBuildTool.SetEnvironmentVariable(EnvOption.ANALYZE_BUNDLE, AnalyzeBundle.ToString(), false);
+
+            ColaBuildTool.SetEnvironmentVariable(EnvOption.APP_NAME, "ColaFramework", false);
+            var timeNow = DateTime.Now;
+            var timeNowStr = string.Format("{0:d4}{1:d2}{2:d2}_{3:d2}{4:d2}{5:d2}", timeNow.Year, timeNow.Month, timeNow.Day, timeNow.Hour, timeNow.Minute, timeNow.Second);
+            ColaBuildTool.SetEnvironmentVariable(EnvOption.BUILD_PATH, ColaEditHelper.ProjectRoot + "/Build/" + timeNowStr, false);
 
             ColaBuildTool.BuildPlayer(BuildTarget);
         }

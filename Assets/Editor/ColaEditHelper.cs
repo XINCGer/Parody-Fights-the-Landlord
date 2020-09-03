@@ -165,7 +165,7 @@ namespace ColaFramework.ToolKit
         public static string CreateAssetBundleDirectory()
         {
             // Choose the output path according to the build target.
-            var outputPath = Utility.AssetBundles + "/" + PlayerSettings.bundleVersion + "/" + GetPlatformName();
+            var outputPath = Utility.AssetBundles + "/" + GetPlatformName();
             if (!Directory.Exists(outputPath))
                 Directory.CreateDirectory(outputPath);
 
@@ -174,7 +174,7 @@ namespace ColaFramework.ToolKit
 
         public static string GetAssetBundleDirectory()
         {
-            return Utility.AssetBundles + "/" + PlayerSettings.bundleVersion + "/" + GetPlatformName();
+            return Utility.AssetBundles + "/" + GetPlatformName();
         }
 
         private static Dictionary<string, string> GetVersions(AssetBundleManifest manifest)
@@ -282,7 +282,7 @@ namespace ColaFramework.ToolKit
             return Path.GetDirectoryName(assetDirName).Replace("\\", "/");
             ;
         }
-        
+
         public static void BuildAssetBundles()
         {
             // Choose the output path according to the build target.
@@ -439,7 +439,7 @@ namespace ColaFramework.ToolKit
             FileHelper.EnsureParentDirExist(LuaConst.luaUpdateTempDir);
             AssetDatabase.Refresh();
 
-            string[] srcDirs = {LuaConst.toluaDirWithSpliter, LuaConst.luaDirWithSpliter};
+            string[] srcDirs = { LuaConst.toluaDirWithSpliter, LuaConst.luaDirWithSpliter };
             int diffCnt = 0;
 
             for (int i = 0; i < srcDirs.Length; i++)
@@ -538,7 +538,7 @@ namespace ColaFramework.ToolKit
             FileHelper.RmDir(LuaConst.streamingAssetLua);
             FileHelper.EnsureParentDirExist(LuaConst.streamingAssetLua);
 
-            string[] luaPaths = {LuaConst.toluaDirWithSpliter, LuaConst.luaDirWithSpliter};
+            string[] luaPaths = { LuaConst.toluaDirWithSpliter, LuaConst.luaDirWithSpliter };
 
             var paths = new List<string>();
             var files = new List<string>();

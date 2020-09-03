@@ -24,6 +24,8 @@ namespace ColaFramework.ToolKit
         CS_DEF_SYMBOL,
         DEVLOPMENT,
         IS_MONO,
+        APP_NAME,
+        BUILD_PATH,
 
         MOTHER_PKG,
         HOT_UPDATE_BUILD,
@@ -96,11 +98,11 @@ namespace ColaFramework.ToolKit
                 //1.首先确认各种环境变量和配置到位
                 InitBuildEnvironment(buildTargetGroup);
 
-                //2.设置参数
-                SetBuildParams(buildTargetGroup);
-
-                //3.自动化接入SDK
+                //2.自动化接入SDK
                 BuildSDK(buildTargetGroup);
+
+                //3.设置参数
+                SetBuildParams(buildTargetGroup);
 
                 //4.处理Lua文件
                 BuildLua(buildTargetGroup);
@@ -186,6 +188,24 @@ namespace ColaFramework.ToolKit
         /// <param name="buildTargetGroup"></param>
         private static void SetBuildParams(BuildTargetGroup buildTargetGroup)
         {
+            //Android包在这里做签名操作
+            var isDevlopment = ContainsEnvOption(EnvOption.DEVLOPMENT);
+            if (isDevlopment)
+            {
+                PlayerSettings.Android.keystoreName = "";
+                PlayerSettings.Android.keystorePass = "";
+                PlayerSettings.Android.keyaliasName = "";
+                PlayerSettings.Android.keyaliasPass = "";
+            }
+            else
+            {
+                PlayerSettings.Android.keystoreName = "./Tools/user.keystore";
+                PlayerSettings.Android.keystorePass = "password";
+                PlayerSettings.Android.keyaliasName = "cola";
+                PlayerSettings.Android.keyaliasPass = "password";
+            }
+
+            PlayerSettings.productName = GetEnvironmentVariable(EnvOption.APP_NAME);
             var CS_DefineSymbol = GetEnvironmentVariable(EnvOption.CS_DEF_SYMBOL);
             if (!string.IsNullOrEmpty(CS_DefineSymbol))
             {
@@ -214,7 +234,7 @@ namespace ColaFramework.ToolKit
             var beginTime = System.DateTime.Now;
             if (!ContainsEnvOption(EnvOption.HOT_UPDATE_BUILD))
             {
-                var outputPath = ColaEditHelper.ProjectRoot + "/Build";
+                var outputPath = GetEnvironmentVariable(EnvOption.BUILD_PATH);
                 if (string.IsNullOrEmpty(outputPath))
                 {
                     outputPath = EditorUtility.SaveFolderPanel("Choose Location of the Built Game", "", "");
@@ -232,10 +252,6 @@ namespace ColaFramework.ToolKit
                 var targetName = GetBuildTargetName(EditorUserBuildSettings.activeBuildTarget);
                 if (targetName == null)
                     return;
-#if UNITY_5_4 || UNITY_5_3 || UNITY_5_2 || UNITY_5_1 || UNITY_5_0
-			BuildOptions option = EditorUserBuildSettings.development ? BuildOptions.Development : BuildOptions.None;
-			BuildPipeline.BuildPlayer(levels, outputPath + targetName, EditorUserBuildSettings.activeBuildTarget, option);
-#else
                 var buildPlayerOptions = new BuildPlayerOptions
                 {
                     scenes = levels,
@@ -256,7 +272,6 @@ namespace ColaFramework.ToolKit
 
                 AssetDatabase.SaveAssets();
                 BuildPipeline.BuildPlayer(buildPlayerOptions);
-#endif
             }
             Debug.Log("=================Build Pkg Time================ : " + (System.DateTime.Now - beginTime).TotalSeconds);
         }
@@ -486,37 +501,18 @@ namespace ColaFramework.ToolKit
 
         private static string GetBuildTargetName(BuildTarget target)
         {
-            var timeNow = DateTime.Now;
-            var timeNowStr = string.Format("{0:d4}{1:d2}{2:d2}_{3:d2}{4:d2}{5:d2}", timeNow.Year, timeNow.Month, timeNow.Day, timeNow.Hour, timeNow.Minute, timeNow.Second);
-            var name = PlayerSettings.productName + "_" + timeNowStr;
-
             switch (target)
             {
                 case BuildTarget.Android:
-                    return "/" + name + ".apk";
-
+                    return "/" + PlayerSettings.productName + ".apk";
                 case BuildTarget.StandaloneWindows:
                 case BuildTarget.StandaloneWindows64:
-                    return "/" + name + ".exe";
-
-#if UNITY_2017_3_OR_NEWER
-                case BuildTarget.StandaloneOSX:
-                    return "/" + name + ".app";
-
-#else
-                    case BuildTarget.StandaloneOSXIntel:
-                    case BuildTarget.StandaloneOSXIntel64:
-                    case BuildTarget.StandaloneOSX:
-                                        return "/" + name + ".app";
-
-#endif
-
-                case BuildTarget.WebGL:
+                    return "/" + PlayerSettings.productName + ".exe";
                 case BuildTarget.iOS:
-                    return "/" + name + ".ipa";
+                    return "";
                 // Add more build targets for your own.
                 default:
-                    Debug.Log("Target not implemented.");
+                    Debug.LogError("Build Target not implemented.");
                     return null;
             }
         }
