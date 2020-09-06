@@ -37,6 +37,7 @@ namespace ColaFramework.ToolKit
         REMOTE_CDN,
 
         ANALYZE_BUNDLE,
+        DistributionSign,
     }
 
     /// <summary>
@@ -189,8 +190,8 @@ namespace ColaFramework.ToolKit
         private static void SetBuildParams(BuildTargetGroup buildTargetGroup)
         {
             //Android包在这里做签名操作
-            var isDevlopment = ContainsEnvOption(EnvOption.DEVLOPMENT);
-            if (isDevlopment)
+            var isDistributionSign = ContainsEnvOption(EnvOption.DistributionSign);
+            if (!isDistributionSign)
             {
                 PlayerSettings.Android.keystoreName = "";
                 PlayerSettings.Android.keystorePass = "";
