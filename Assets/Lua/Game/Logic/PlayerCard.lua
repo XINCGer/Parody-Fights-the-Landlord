@@ -48,22 +48,22 @@ function PlayerCard:CheckPlayCards(selectedCardsList, selectedSpriteList)
     if result then
         local rule = Mod.DeskCardsCache.GetRule()
         if Ctrl.Order.GetBiggestCharType() == Ctrl.Order.GetCurrCharType() then
-            PlayerCard(selectedCardsList, selectedSpriteList, type)
+            self:PlayCards(selectedCardsList, selectedSpriteList, type)
         elseif Mod.DeskCardsCache.GetRule() == CardType.None then
-            PlayerCard(selectedCardsList, selectedSpriteList, type)
+            self:PlayCards(selectedCardsList, selectedSpriteList, type)
         elseif type == CardType.Boom and rule ~= CardType.Boom then
             --炸弹
             Ctrl.World.SetMultiples(2)
-            PlayerCard(selectedCardsList, selectedSpriteList, type)
+            self:PlayCards(selectedCardsList, selectedSpriteList, type)
         elseif type == CardType.JokerBoom then
             --王炸
             Ctrl.World.SetMultiples(4)
-            PlayerCard(selectedCardsList, selectedSpriteList, type)
+            self:PlayCards(selectedCardsList, selectedSpriteList, type)
         elseif type == CardType.Boom and rule == CardType.Boom and Ctrl.World.GetWeight(selectedCardsList, type) > Mod.DeskCardsCache.GetTotalWeight() then
             Ctrl.World.SetMultiples(4)
-            PlayerCard(selectedCardsList, selectedSpriteList, type)
+            self:PlayCards(selectedCardsList, selectedSpriteList, type)
         elseif Ctrl.World.GetWeight(selectedCardsList, type) > Mod.DeskCardsCache.GetTotalWeight() then
-            PlayerCard(selectedCardsList, selectedSpriteList, type)
+            self:PlayCards(selectedCardsList, selectedSpriteList, type)
         end
     end
     return result
@@ -73,7 +73,7 @@ end
 ---@param selectedCardsList table<number,Card>
 ---@param selectedSpriteList table<number,CardSprite>
 ---@param type LandlordEnum.CardsType
-function PlayerCard:PlayCard(selectedCardsList, selectedSpriteList, type)
+function PlayerCard:PlayCards(selectedCardsList, selectedSpriteList, type)
     --如果符合将牌从手牌移到出牌缓存区
     Mod.DeskCardsCache.Clear()
     Mod.DeskCardsCache.SetRule(type)
