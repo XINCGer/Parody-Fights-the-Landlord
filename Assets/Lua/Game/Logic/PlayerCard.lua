@@ -84,6 +84,18 @@ function PlayerCard:PlayCards(selectedCardsList, selectedSpriteList, type)
         --todo:Ctrl.World.GetDeskRootTF()
         v:SetParent(Ctrl.World.GetDeskRootTF())
     end
+
+    Mod.DeskCardsCache.Sort()
+    Ctrl.World.AdjustCardSpritsPosition(LandlordEnum.CharacterType.Desk)
+    Ctrl.World.AdjustCardSpritsPosition(LandlordEnum.CharacterType.Player)
+    Ctrl.World.UpdateLeftCardsCount(LandlordEnum.CharacterType.Player,self.handCards:CardCount())
+
+    if self.handCards:CardCount() == 0 then
+        --TODO:Dispatch Event GameOver!
+    else
+        Ctrl.Order.SetBiggestCharType(LandlordEnum.CharacterType.Player)
+        Ctrl.Order.Turn()
+    end
 end
 
 return PlayerCard
