@@ -6,6 +6,14 @@
     android:installLocation="preferExternal"
     android:versionCode="1"
     android:versionName="1.0">
+
+    <!--**USE_BUGLY
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    USE_BUGLY**-->
     <supports-screens
         android:smallScreens="true"
         android:normalScreens="true"

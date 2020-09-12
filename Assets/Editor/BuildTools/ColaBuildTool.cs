@@ -9,6 +9,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using System.Text;
+using System.Text.RegularExpressions;
 using Plugins.XAsset;
 using ColaFramework.Foundation;
 using LitJson;
@@ -38,6 +39,9 @@ namespace ColaFramework.ToolKit
 
         ANALYZE_BUNDLE,
         DistributionSign,
+        
+        //SDK相关
+        USE_BUGLY,
     }
 
     /// <summary>
@@ -51,6 +55,11 @@ namespace ColaFramework.ToolKit
         private const string Resource_VersionPath = "Assets/Resources/versions.txt";
         private const string CDNVersionControlUrl = "CDN/versioncontrol/{0}/{1}";
         private const string CDNResourceUrl = "CDN/ColaFramework/cdn/{0}/{1}";
+        
+        #region SDK正则匹配
+        private static string RULE_BUGLY_BEGIN = @"([ ]+)(<!--\*\*USE_BUGLY)(\r?\n)";
+        private static string RULE_BUGLY_END = @"([ ]+)(USE_BUGLY\*\*-->)(\r?\n)";
+        #endregion
 
         private static Dictionary<EnvOption, string> internalEnvMap = new Dictionary<EnvOption, string>();
 
@@ -146,7 +155,26 @@ namespace ColaFramework.ToolKit
         /// <param name="buildTargetGroup"></param>
         private static void BuildSDK(BuildTargetGroup buildTargetGroup)
         {
+            if (ContainsEnvOption(EnvOption.USE_BUGLY))
+            {
+                SetEnvironmentVariable(EnvOption.CS_DEF_SYMBOL, "USE_BUGLY", true);
 
+                //Android平台下拷贝需要的库资源
+                if (BuildTargetGroup.Android == buildTargetGroup)
+                {
+                    var projRoot = Path.GetDirectoryName(Application.dataPath);
+                    var src = Path.Combine(projRoot, "Publish/Plugins/Bugly/Android");
+                    var dst = Path.Combine(projRoot, "Assets/Plugins/Bugly/Android");
+                    FileHelper.CopyDir(src, dst);
+
+                    var maniPath = Path.Combine(Application.dataPath, "Plugins/Android/AndroidManifest.xml");
+                    var maniContent = File.ReadAllText(maniPath);
+                    maniContent = Regex.Replace(maniContent, RULE_BUGLY_BEGIN, @"$1<!--**USE_BUGLY-->$3");
+                    maniContent = Regex.Replace(maniContent, RULE_BUGLY_END, @"$1<!--USE_BUGLY**-->$3");
+                    File.WriteAllText(maniPath, maniContent);
+                    AssetDatabase.Refresh();
+                }
+            }
         }
 
 #if UNITY_IOS
