@@ -41,9 +41,56 @@ function SmartCard:DelayDiscardCard(isNone)
 
         --根据桌面牌的类型和权值大小出牌
         if rule == CardType.None then
-            
+            local discardCards = self:GetFirstCard()
+            if #discardCards ~= 0 then
+                self:RemoveCards(discardCards)
+                self:DiscardCards(discardCards, self:GetSprite(discardCards))
+            end
         end
     end
+end
+
+---移除手牌
+---@param cards table<number,Card>
+function SmartCard:RemoveCards(cards)
+    local allCards = self.handCards:GetAllCards()
+
+    for _, v in ipairs(cards) do
+        for _, m in ipairs(allCards) do
+            if v == m then
+                self.handCards:PopCard(m)
+                break
+            end
+        end
+    end
+end
+
+---DiscardCards
+---@param selectedCards table<number,Card>
+---@param selectSprites table<number,CardSprite>
+function SmartCard:DiscardCards(selectedCards, selectSprites)
+
+end
+
+---获取card对应的精灵
+---@param cards table<number,Card>
+function SmartCard:GetSprite(cards)
+    local cType = self.handCards.cType
+    --TODO:待完善
+    ---@type table<number,CardSprite>
+    local sprites = Ctrl.World.GetAllCardSpritesByCharType(cType)
+
+    local selectedSprites = {}
+
+    for _, v in ipairs(sprites) do
+        for _, m in ipairs(cards) do
+            if m == v:GetPoker() then
+                table.insert(selectedSprites, v)
+                break
+            end
+        end
+    end
+    return selectedSprites
 end
 
 return SmartCard
