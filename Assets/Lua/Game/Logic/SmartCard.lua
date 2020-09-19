@@ -93,4 +93,12 @@ function SmartCard:GetSprite(cards)
     return selectedSprites
 end
 
+---找到手牌中符合要求的是单牌
+---@param allCards table<number,Card>
+---@param weight number
+---@param equal boolean
+function SmartCard:FindSingle(allCards,weight,equal)
+
+end
+
 return SmartCard
