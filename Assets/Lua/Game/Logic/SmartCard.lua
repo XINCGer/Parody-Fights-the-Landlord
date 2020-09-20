@@ -97,8 +97,23 @@ end
 ---@param allCards table<number,Card>
 ---@param weight number
 ---@param equal boolean
-function SmartCard:FindSingle(allCards,weight,equal)
-
+---@return table<number,Card>
+function SmartCard:FindSingle(allCards, weight, equal)
+    local ret = {}
+    for _, v in ipairs(allCards) do
+        if equal then
+            if v:GetCardWeight() >= weight then
+                table.insert(ret, v)
+                break
+            end
+        else
+            if v:GetCardWeight() > weight then
+                table.insert(ret, v)
+                break
+            end
+        end
+    end
+    return ret
 end
 
 return SmartCard
