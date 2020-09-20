@@ -307,3 +307,9 @@ AssetBundles/
 ColaCache/
 CDN/
 Build/
+LuaBaseTemp/
+LuaUpdateTemp/
+.DS_Store
+LuaBaseTemp.meta
+LuaUpdateTemp.meta
+StreamingAssets.meta
