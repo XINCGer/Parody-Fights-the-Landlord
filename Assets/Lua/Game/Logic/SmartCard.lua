@@ -116,4 +116,22 @@ function SmartCard:FindSingle(allCards, weight, equal)
     return ret
 end
 
+---三带二
+---@param allCards table<number,Card>
+---@param weight number
+---@param equal boolean
+---@return table<number,Card>
+function SmartCard:FindThreeAndOne(allCards, weight, equal)
+
+end
+
+---找到手中的牌是三张的
+---@param allCards table<number,Card>
+---@param weight number
+---@param equal boolean
+---@return table<number,Card>
+function SmartCard:FindThree(allCards,weight,equal)
+
+end
+
 return SmartCard
