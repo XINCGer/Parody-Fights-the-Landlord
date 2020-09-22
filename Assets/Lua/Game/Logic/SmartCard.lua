@@ -65,7 +65,7 @@ function SmartCard:RemoveCards(cards)
     end
 end
 
----DiscardCards
+---出牌动画
 ---@param selectedCards table<number,Card>
 ---@param selectSprites table<number,CardSprite>
 function SmartCard:DiscardCards(selectedCards, selectSprites)
@@ -162,7 +162,25 @@ end
 ---@param exclude table<number,Card>
 ---@return table<number,Card>
 function SmartCard:GetAllCards(exclude)
-
+    local cards = {}
+    local isContinue = false
+    local allCards = self.handCards:GetAllCards()
+    for _, v in allCards do
+        isContinue = false
+        if next(exclude) ~= nil then
+            for _, m in ipairs(exclude) do
+                if v == m then
+                    isContinue = true
+                    break
+                end
+            end
+        end
+        if false == isContinue then
+            table.insert(cards, v)
+        end
+    end
+    Ctrl.CardRules.SortCards(cards,false)
+    return cards
 end
 
 ---找到手牌中符合要求的是对子
