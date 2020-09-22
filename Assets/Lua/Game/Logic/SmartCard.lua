@@ -116,13 +116,21 @@ function SmartCard:FindSingle(allCards, weight, equal)
     return ret
 end
 
----三带二
+---三带一
 ---@param allCards table<number,Card>
 ---@param weight number
 ---@param equal boolean
 ---@return table<number,Card>
 function SmartCard:FindThreeAndOne(allCards, weight, equal)
-
+    local threeCards = self:FindOnlyThree(allCards, weight, equal)
+    if 0 ~= #threeCards then
+        local leftCards = self:GetAllCards(threeCards)
+        local one = self:FindSingle(leftCards, LandlordEnum.Weight.Three, true)
+        for _, v in ipairs(one) do
+            table.insert(threeCards, v)
+        end
+    end
+    return threeCards
 end
 
 ---找到手中的牌是三张的
@@ -130,7 +138,14 @@ end
 ---@param weight number
 ---@param equal boolean
 ---@return table<number,Card>
-function SmartCard:FindThree(allCards,weight,equal)
+function SmartCard:FindOnlyThree(allCards, weight, equal)
+
+end
+
+---获取所有的手牌
+---@param exclude table<number,Card>
+---@return table<number,Card>
+function SmartCard:GetAllCards(exclude)
 
 end
 
