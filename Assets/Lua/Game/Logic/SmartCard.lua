@@ -179,7 +179,7 @@ function SmartCard:GetAllCards(exclude)
             table.insert(cards, v)
         end
     end
-    Ctrl.CardRules.SortCards(cards,false)
+    Ctrl.CardRules.SortCards(cards, false)
     return cards
 end
 
@@ -188,7 +188,28 @@ end
 ---@param weight LandlordEnum.Weight
 ---@param equal boolean
 function SmartCard:FindDouble(allCards, weight, equal)
-
+    local ret = {}
+    local length = #allCards
+    for i = 1, length do
+        if i < length - 1 then
+            if allCards[i]:GetCardWeight() == allCards[i + 1]:GetCardWeight() then
+                local totalWeight = allCards[i]:GetCardWeight() + allCards[i + 1]:GetCardWeight()
+                if equal then
+                    if totalWeight >= weight then
+                        table.insert(allCards[i])
+                        table.insert(allCards[i + 1])
+                        break
+                    end
+                else
+                    if totalWeight > weight then
+                        table.insert(allCards[i])
+                        table.insert(allCards[i + 1])
+                    end
+                end
+            end
+        end
+    end
+    return ret
 end
 
 return SmartCard
