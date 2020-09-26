@@ -14,6 +14,8 @@ namespace ColaFramework.ToolKit
 {
     public class AppSetting : SerializedScriptableObject
     {
+        [InfoBox("仅用于Editor编辑器模式下的临时性修改",InfoMessageType.Info)]
+
         [LabelText("是否开启模拟模式")]
         [OnValueChanged("OnValueChanged")]
         public bool SimulateMode;
