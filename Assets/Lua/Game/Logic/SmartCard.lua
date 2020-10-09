@@ -212,4 +212,53 @@ function SmartCard:FindDouble(allCards, weight, equal)
     return ret
 end
 
+---找到手牌中符合要求的炸弹
+---@param allCards table<number,Card>
+---@param weight LandlordEnum.Weight
+---@param equal boolean
+---@return table<number,Card>
+function SmartCard:FindBoom(allCards, weight, equal)
+    local ret = {}
+    local length = #allCards
+    for i = 1, length do
+        if i <= length - 4 then
+            --先找出普通炸弹
+            if allCards[i]:GetCardWeight() == allCards[i + 1]:GetCardWeight() and allCards[i]:GetCardWeight() == allCards[i + 2]:GetCardWeight() and allCards[i]:GetCardWeight() == allCards[i + 3]:GetCardWeight() then
+                local totalWeight = allCards[i]:GetCardWeight() * 4
+                if equal then
+                    if totalWeight >= weight then
+                        table.insert(ret, allCards[i])
+                        table.insert(ret, allCards[i + 1])
+                        table.insert(ret, allCards[i + 2])
+                        table.insert(ret, allCards[i + 3])
+                        break
+                    end
+                else
+                    if totalWeight > weight then
+                        table.insert(ret, allCards[i])
+                        table.insert(ret, allCards[i + 1])
+                        table.insert(ret, allCards[i + 2])
+                        table.insert(ret, allCards[i + 3])
+                        break
+                    end
+                end
+            end
+        end
+    end
+
+    --找王炸
+    if #ret == 0 then
+        for i = 1, length do
+            if i < length then
+                if allCards[i]:GetCardWeight() == LandlordEnum.Weight.SJoker and allCards[i + 1]:GetCardWeight() == LandlordEnum.Weight.LJoker then
+                    table.insert(ret, allCards[i])
+                    table.insert(ret, allCards[i + 1])
+                end
+            end
+        end
+    end
+
+    return ret
+end
+
 return SmartCard
