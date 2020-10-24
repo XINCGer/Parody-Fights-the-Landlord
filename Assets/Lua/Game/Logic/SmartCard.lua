@@ -155,7 +155,31 @@ end
 ---@param equal boolean
 ---@return table<number,Card>
 function SmartCard:FindOnlyThree(allCards, weight, equal)
-
+    local ret = {}
+    local length = #allCards
+    for i = 0, length do
+        if i <= length - 2 then
+            if allCards[i]:GetCardWeight() == allCards[i + 1]:GetCardWeight() and allCards[i]:GetCardWeight() == allCards[i + 2]:GetCardWeight() then
+                local totalWeight = allCards[i]:GetCardWeight() + allCards[i + 1]:GetCardWeight() + allCards[i + 2]:GetCardWeight()
+                if equal then
+                    if totalWeight >= weight then
+                        table.insert(ret, allCards[i])
+                        table.insert(ret, allCards[i + 1])
+                        table.insert(ret, allCards[i + 2])
+                        break
+                    end
+                else
+                    if totalWeight > weight then
+                        table.insert(ret, allCards[i])
+                        table.insert(ret, allCards[i + 1])
+                        table.insert(ret, allCards[i + 2])
+                        break
+                    end
+                end
+            end
+        end
+    end
+    return ret
 end
 
 ---获取所有的手牌
