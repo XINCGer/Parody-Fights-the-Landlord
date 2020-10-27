@@ -250,6 +250,14 @@ function SmartCard:FindStraight(allCards, minWeight, length, equal)
     return ret
 end
 
+---找到手牌中符合要求对或更多的连续对牌
+---@param allCards table<number,Card>
+---@param minWeight number
+---@param length number
+function SmartCard:FindDoubleStraight(allCards, minWeight, length)
+
+end
+
 ---获取所有的手牌
 ---@param exclude table<number,Card>
 ---@return table<number,Card>
