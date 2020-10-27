@@ -182,6 +182,74 @@ function SmartCard:FindOnlyThree(allCards, weight, equal)
     return ret
 end
 
+---找到手牌中符合要求的是顺子的
+---@param allCards table<number,Card>
+---@param minWeight number
+---@param length number
+---@param equal boolean
+function SmartCard:FindStraight(allCards, minWeight, length, equal)
+    local ret = {}
+    local counter = 1
+    local idxList = nil
+    local cardsLength = #allCards
+
+    for i = 1, cardsLength do
+        if i <= cardsLength - 4 then
+            local weight = allCards[i]:GetCardWeight()
+            if equal then
+                if weight >= minWeight then
+                    counter = 1
+                    idxList = {}
+
+                    for j = i + 1, #allCards do
+                        if allCards[j]:GetCardWeight() > LandlordEnum.Weight.One then
+                            break
+                        end
+
+                        if allCards[j]:GetCardWeight() - weight == counter then
+                            counter = counter + 1
+                            table.insert(idxList, j)
+                        end
+
+                        if counter == length then
+                            break
+                        end
+                    end
+                end
+            else
+                if weight > minWeight then
+                    counter = 1
+                    idxList = {}
+
+                    for j = i + 1, cardsLength do
+                        if allCards[j]:GetCardWeight() > LandlordEnum.Weight.One then
+                            break
+                        end
+                        if allCards[j]:GetCardWeight() - weight == counter then
+                            counter = counter + 1
+                            table.insert(idxList, j)
+                        end
+                        if counter == length then
+                            break
+                        end
+                    end
+                end
+            end
+        end
+
+        if counter == length then
+            table.insert(idxList, 1, i)
+        end
+    end
+
+    if counter == length then
+        for _, v in ipairs(idxList) do
+            table.insert(ret, allCards[v])
+        end
+    end
+    return ret
+end
+
 ---获取所有的手牌
 ---@param exclude table<number,Card>
 ---@return table<number,Card>
