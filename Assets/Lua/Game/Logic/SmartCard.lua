@@ -255,7 +255,46 @@ end
 ---@param minWeight number
 ---@param length number
 function SmartCard:FindDoubleStraight(allCards, minWeight, length)
+    local ret = {}
+    local counter = 0
+    local indexList = nil
+    local cardsLength = #allCards
 
+    for i = 1, cardsLength do
+        if i <= cardsLength - 4 then
+            local weight = allCards[i]:GetCardWeight()
+            if weight > minWeight then
+                counter = 0
+                indexList = {}
+
+                local circle = 0
+                for j = i + 1, cardsLength do
+                    if allCards[j]:GetCardWeight() > LandlordEnum.Weight.One then
+                        break
+                    end
+                    if allCards[j]:GetCardWeight() - weight == counter then
+                        circle = circle + 1
+                        if circle % 2 == 1 then
+                            counter = counter + 1
+                        end
+                        table.insert(indexList, j)
+                    end
+                    if counter == length / 2 then
+                        break
+                    end
+                end
+            end
+        end
+        if counter == length / 2 then
+            table.insert(indexList, 1, i)
+        end
+    end
+    if counter == length / 2 then
+        for i = 1, #indexList do
+            table.insert(ret, allCards[indexList[i]])
+        end
+    end
+    return ret
 end
 
 ---获取所有的手牌
