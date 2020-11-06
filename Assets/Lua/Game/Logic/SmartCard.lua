@@ -69,7 +69,30 @@ end
 ---@param selectedCards table<number,Card>
 ---@param selectSprites table<number,CardSprite>
 function SmartCard:DiscardCards(selectedCards, selectSprites)
+    --检测是否符合出牌规范
+    local result, type = Ctrl.CardRules.PopEnable(selectedCards)
+    if result then
+        --如果符合，将牌从手牌移到出牌缓存区
+        Mod.DeskCardsCache.Clear()
+        Mod.DeskCardsCache.SetRule(type)
+        for _,v in ipairs(selectSprites) do
+            Mod.DeskCardsCache.AddCard(v:GetPoker())
+            --TODO:获取Desk的Root节点
+            v:SetParent(Ctrl.World.GetDeskRootTF())
+        end
 
+        Mod.DeskCardsCache.Sort()
+        Ctrl.World.AdjustCardSpritsPosition(LandlordEnum.CharacterType.Desk)
+        Ctrl.World.AdjustCardSpritsPosition(self.handCards.cType)
+        Ctrl.World.UpdateLeftCardsCount(self.handCards.cType,self.handCards:CardCount())
+
+        if self.handCards:CardCount() == 0 then
+            --TODO:Dispatch Event GameOver!
+        else
+            Ctrl.Order.SetBiggestCharType(self.handCards.cType)
+            Ctrl.Order.Turn()
+        end
+    end
 end
 
 ---获取card对应的精灵
