@@ -143,14 +143,14 @@ namespace ColaFramework.ToolKit
             else if (platform == "Android")
             {
                 platformTextureSetting.format = useAlpha ?
-                    (useHighQuality ? TextureImporterFormat.RGBA32 : TextureImporterFormat.ETC2_RGBA8) :
-                    (useHighQuality ? TextureImporterFormat.RGB24 : TextureImporterFormat.ETC_RGB4);
+                    (useHighQuality ? TextureImporterFormat.RGBA32 : TextureImporterFormat.ASTC_RGBA_6x6) :
+                    (useHighQuality ? TextureImporterFormat.RGB24 : TextureImporterFormat.ASTC_RGB_6x6);
             }
             else
             {
                 platformTextureSetting.format = useAlpha ?
-                    (useHighQuality ? TextureImporterFormat.RGBA32 : TextureImporterFormat.RGBA16) :
-                    (useHighQuality ? TextureImporterFormat.RGB24 : TextureImporterFormat.RGB16);
+                    (useHighQuality ? TextureImporterFormat.RGBA32 : TextureImporterFormat.RGBA32) :
+                    (useHighQuality ? TextureImporterFormat.RGB24 : TextureImporterFormat.RGB24);
             }
 
             platformTextureSetting.crunchedCompression = false;
